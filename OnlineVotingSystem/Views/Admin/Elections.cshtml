@@ -1,0 +1,37 @@
+﻿@model List<OnlineVotingSystem.Models.Election>
+@using System.Collections.Generic
+
+@{
+    ViewBag.Title = "Elections";
+}
+
+<h2>Elections</h2>
+
+@Html.ActionLink("← Back to Dashboard", "Dashboard", "Admin", null, new { @class = "btn btn-back" })
+@Html.ActionLink("Add Election", "AddElection", "Admin", null, new { @class = "btn btn-primary" })
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var e in Model)
+        {
+            <tr>
+                <td>@e.Title</td>
+                <td>@(e.StartDate.HasValue ? e.StartDate.Value.ToString("yyyy-MM-dd") : "")</td>
+                <td>@(e.EndDate.HasValue ? e.EndDate.Value.ToString("yyyy-MM-dd") : "")</td>
+                <td>@e.Status</td>
+                <td>
+                    @Html.ActionLink(e.Status == "Active" ? "Deactivate" : "Activate", "ToggleElectionStatus", "Admin", new { id = e.ElectionId }, null)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

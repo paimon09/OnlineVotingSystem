@@ -1,0 +1,56 @@
+@model List<OnlineVotingSystem.Models.Election>
+@{
+    ViewBag.Title = "View Elections";
+}
+
+@Html.ActionLink("← Back to Dashboard", "Dashboard", "Admin", null, new { @class = "btn btn-back" })
+
+<div class="page-header">
+    <h2>Elections Management</h2>
+</div>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+
+<div style="margin-bottom: 20px;">
+    @Html.ActionLink("Add New Election", "AddElection", "Admin", null, new { @class = "btn btn-primary" })
+</div>
+
+<div class="data-grid">
+    @if (Model != null && Model.Count > 0)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var election in Model)
+                {
+                    <tr>
+                        <td>@election.ElectionId</td>
+                        <td>@election.Title</td>
+                        <td>@election.StartDate.ToString("dd/MM/yyyy")</td>
+                        <td>@election.EndDate.ToString("dd/MM/yyyy")</td>
+                        <td>@election.Status</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="no-data">
+            <p>No elections found. <a href="@Url.Action("AddElection", "Admin")">Add the first election</a></p>
+        </div>
+    }
+</div>

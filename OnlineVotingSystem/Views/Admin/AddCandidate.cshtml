@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Add Candidate";
+}
+
+@Html.ActionLink("← Back to Dashboard", "Dashboard", "Admin", null, new { @class = "btn btn-back" })
+
+<div class="page-header">
+    <h2>Add Candidate</h2>
+</div>
+
+<div class="form-container">
+    @using (Html.BeginForm("AddCandidate", "Admin", FormMethod.Post))
+    {
+        <div class="form-group">
+            <label for="name">Candidate Name:</label>
+            <input type="text" name="name" id="name" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="electionId">Election:</label>
+            @Html.DropDownList("electionId", (SelectList)ViewBag.Elections, "-- Select Election --", new { @class = "form-control", required = "required" })
+        </div>
+
+        <input type="submit" value="Add Candidate" class="btn btn-primary" />
+        @Html.ActionLink("Cancel", "Dashboard", "Admin", null, new { @class = "btn btn-secondary" })
+    }
+</div>
+@if (ViewBag.Candidate != null)
+{
+    <div class="alert alert-success">
+        @ViewBag.Candidate
+    </div>
+}

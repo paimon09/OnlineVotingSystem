@@ -1,0 +1,36 @@
+﻿@model List<OnlineVotingSystem.Models.Candidate>
+@using System.Collections.Generic
+
+@{
+    ViewBag.Title = "Candidates";
+    var map = ViewBag.ElectionMap as Dictionary<int, string> ?? new Dictionary<int, string>();
+}
+
+<h2>Candidates</h2>
+
+@Html.ActionLink("← Back to Dashboard", "Dashboard", "Admin", null, new { @class = "btn btn-back" })
+@Html.ActionLink("Add Candidate", "AddCandidate", "Admin", null, new { @class = "btn btn-primary" })
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Election</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var c in Model)
+        {
+            <tr>
+                <td>@c.Name</td>
+                <td>@(c.ElectionId.HasValue && map.ContainsKey(c.ElectionId.Value) ? map[c.ElectionId.Value] : "—")</td>
+                <td>@(string.IsNullOrEmpty(c.Status) ? "Active" : c.Status)</td>
+                <td>
+                    @Html.ActionLink((string.IsNullOrEmpty(c.Status) || c.Status=="Active") ? "Deactivate" : "Activate", "ToggleCandidateStatus", "Admin", new { id = c.CandidateId }, null)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

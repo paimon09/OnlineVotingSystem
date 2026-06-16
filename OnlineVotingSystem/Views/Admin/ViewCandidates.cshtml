@@ -1,0 +1,52 @@
+@model List<OnlineVotingSystem.Models.Candidate>
+@{
+    ViewBag.Title = "View Candidates";
+}
+
+@Html.ActionLink("← Back to Dashboard", "Dashboard", "Admin", null, new { @class = "btn btn-back" })
+
+<div class="page-header">
+    <h2>Candidates Management</h2>
+</div>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+
+<div style="margin-bottom: 20px;">
+    @Html.ActionLink("Add New Candidate", "AddCandidate", "Admin", null, new { @class = "btn btn-primary" })
+</div>
+
+<div class="data-grid">
+    @if (Model != null && Model.Count > 0)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Candidate Name</th>
+                    <th>Election</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var candidate in Model)
+                {
+                    <tr>
+                        <td>@candidate.CandidateId</td>
+                        <td>@candidate.Name</td>
+                        <td>@candidate.ElectionTitle</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="no-data">
+            <p>No candidates found. <a href="@Url.Action("AddCandidate", "Admin")">Add the first candidate</a></p>
+        </div>
+    }
+</div>

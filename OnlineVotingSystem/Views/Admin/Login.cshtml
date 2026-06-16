@@ -1,0 +1,154 @@
+﻿@{
+    ViewBag.Title = "Admin Login";
+}
+
+<style>
+    body {
+        background: linear-gradient(120deg, #0f2027, #2c5364);
+        min-height: 100vh;
+        margin: 0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .portal-container {
+        width: 100%;
+        max-width: 400px;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 6px 32px rgba(44, 83, 100, 0.18), 0 1.5px 4px rgba(0, 0, 0, 0.06);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .portal-header {
+        background: linear-gradient(90deg, #11998e, #38ef7d);
+        color: #fff;
+        text-align: center;
+        padding: 2rem 1rem 1.2rem;
+        font-size: 1.8rem;
+        font-weight: 700;
+        border-bottom-left-radius: 32px 24px;
+        border-bottom-right-radius: 32px 24px;
+    }
+
+    .portal-logo {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        margin-bottom: 0.5rem;
+        object-fit: cover;
+        background-color: #e0f7fa;
+        box-shadow: 0 2px 8px rgba(17, 153, 142, 0.14);
+    }
+
+    .portal-form {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .portal-label {
+        font-weight: 500;
+        margin-bottom: 0.3rem;
+        color: #333;
+    }
+
+    .portal-input {
+        padding: 10px 14px;
+        border: 1.5px solid #17b978;
+        border-radius: 6px;
+        background: #f5f7fa;
+        font-size: 1rem;
+        transition: 0.2s ease;
+    }
+
+    .portal-input:focus {
+        outline: none;
+        border-color: #11998e;
+        background: #e0f7fa;
+    }
+
+    .portal-submit {
+        background: linear-gradient(90deg, #11998e, #38ef7d);
+        border: none;
+        color: white;
+        padding: 12px;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .portal-submit:hover {
+        background: linear-gradient(90deg, #38ef7d, #11998e);
+    }
+
+    .portal-message {
+        text-align: center;
+        margin-top: 0.5rem;
+        color: #d32f2f;
+        font-weight: 500;
+        min-height: 1.2rem;
+    }
+
+    @@media (max-width: 500px) {
+        .portal-container {
+            margin: 1rem;
+        }
+
+        .portal-form {
+            padding: 1rem;
+        }
+
+        .portal-header {
+            font-size: 1.5rem;
+            padding: 1.5rem 0.8rem;
+        }
+
+        .portal-logo {
+            width: 56px;
+            height: 56px;
+        }
+    }
+</style>
+
+<div class="portal-container">
+    <div class="portal-header">
+        <img src="~/images/AdminLogin.jpg" alt="Admin Portal Logo" class="portal-logo" />
+        Admin Login
+    </div>
+
+    <div class="portal-form">
+        @using (Html.BeginForm("Login", "Admin", FormMethod.Post))
+        {
+            <div class="form-group">
+                <label class="portal-label" for="username">Username</label>
+                <input type="text" name="username" id="username" class="portal-input" required autocomplete="username" />
+            </div>
+
+            <div class="form-group">
+                <label class="portal-label" for="password">Password</label>
+                <input type="password" name="password" id="password" class="portal-input" required autocomplete="current-password" />
+            </div>
+
+            <button type="submit" class="portal-submit">Login</button>
+        }
+        <div style="text-align:center; margin-top:8px;">
+            <a href="@Url.Action("Login", "Voter")" class="portal-secondary" style="display:inline-block;">
+                Go to Voter Login Page
+            </a>
+        </div>
+        <div class="portal-message">@ViewBag.Message</div>
+    </div>
+</div>

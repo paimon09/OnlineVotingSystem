@@ -1,0 +1,65 @@
+@model List<OnlineVotingSystem.Models.Voter>
+@{
+    ViewBag.Title = "View Voters";
+}
+
+@Html.ActionLink("← Back to Dashboard", "Dashboard", "Admin", null, new { @class = "btn btn-back" })
+
+<div class="page-header">
+    <h2>Voters Management</h2>
+</div>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+
+<div style="margin-bottom: 20px;">
+    @Html.ActionLink("Add New Voter", "AddVoter", "Admin", null, new { @class = "btn btn-primary" })
+</div>
+
+<div class="data-grid">
+    @if (Model != null && Model.Count > 0)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th>Voting Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var voter in Model)
+                {
+                    <tr>
+                        <td>@voter.VoterId</td>
+                        <td>@voter.Name</td>
+                        <td>@voter.Email</td>
+                        <td>@voter.Username</td>
+                        <td>
+                            @if (voter.HasVoted)
+                            {
+                                <span style="color: green; font-weight: bold;">Voted</span>
+                            }
+                            else
+                            {
+                                <span style="color: orange; font-weight: bold;">Not Voted</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="no-data">
+            <p>No voters found. <a href="@Url.Action("AddVoter", "Admin")">Add the first voter</a></p>
+        </div>
+    }
+</div>

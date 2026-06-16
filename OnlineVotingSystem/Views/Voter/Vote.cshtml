@@ -1,0 +1,42 @@
+﻿@model List<OnlineVotingSystem.Models.Candidate>
+
+@{
+    ViewBag.Title = "Vote";
+}
+
+<h2>Select Your Candidate</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+
+<div style="margin-bottom:12px;">
+    @Html.ActionLink("← Back to Dashboard", "Dashboard", "Voter", null, new { @class = "btn btn-back" })
+    @Html.ActionLink("Logout", "Logout", "Voter", null, new { @class = "btn btn-secondary", style = "margin-left:8px;" })
+</div>
+
+@using (Html.BeginForm("Vote", "Voter", FormMethod.Post))
+{
+    @Html.Hidden("electionId", (int?)ViewBag.ElectionId)
+    if (Model != null && Model.Count > 0)
+    {
+        foreach (var candidate in Model)
+        {
+            <div style="margin-bottom:8px;">
+                <label>
+                    <input type="radio" name="candidateId" value="@candidate.CandidateId" /> @candidate.Name
+                </label>
+            </div>
+        }
+
+        <br />
+        <input type="submit" value="Submit Vote" class="btn btn-primary" />
+    }
+    else
+    {
+        <div class="no-data">
+            <p>No active candidates available for this election.</p>
+        </div>
+    }
+}

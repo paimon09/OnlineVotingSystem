@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Admin Dashboard";
+}
+
+<div class="page-header">
+    <h2>Welcome, @Session["AdminUser"]</h2>
+    <p>Online Voting System - Admin Panel</p>
+</div>
+
+<div class="dashboard-menu">
+    <div class="menu-item">
+        @Html.ActionLink("Add Election", "AddElection", "Admin")
+        <p>Create new voting elections</p>
+    </div>
+    <div class="menu-item">
+        @Html.ActionLink("View Elections", "Elections", "Admin")
+        <p>Manage existing elections</p>
+    </div>
+    <div class="menu-item">
+        @Html.ActionLink("Add Candidate", "AddCandidate", "Admin")
+        <p>Register new candidates</p>
+    </div>
+    <div class="menu-item">
+        @Html.ActionLink("View Candidates", "Candidates", "Admin")
+        <p>Manage candidates</p>
+    </div>
+    <div class="menu-item">
+        @Html.ActionLink("Add Voter", "AddVoter", "Admin")
+        <p>Register new voters</p>
+    </div>
+    <div class="menu-item">
+        @Html.ActionLink("View Voters", "Voters", "Admin")
+        <p>Manage voter accounts</p>
+    </div>
+    <div class="menu-item">
+        @Html.ActionLink("View Results", "Results", "Admin")
+        <p>Check election results</p>
+    </div>
+    <div class="menu-item">
+        @Html.ActionLink("Logout", "Logout", "Admin", null, new { @class = "btn btn-secondary" })
+        <p>Exit admin panel</p>
+    </div>
+</div>

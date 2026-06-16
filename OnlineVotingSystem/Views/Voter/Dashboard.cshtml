@@ -1,0 +1,14 @@
+﻿
+@model List<OnlineVotingSystem.Models.Election>
+
+<h2>Active Elections</h2>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            @item.Title |
+            @Html.ActionLink("Vote", "Vote", new { electionId = item.ElectionId })
+        </li>
+    }
+</ul>
